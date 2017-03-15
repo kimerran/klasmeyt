@@ -1,1 +1,35 @@
 <h1>New Item</h1>
+
+<%= form_for @changeset, item_path(@conn, :create), fn f -> %>
+  <div class="form-group">
+    <span>Title</span>
+    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :price, placeholder: "Price", class: "form-control" %>
+    <%= error_tag f, :price %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :short_desc, placeholder: "Description", class: "form-control" %>
+    <%= error_tag f, :short_desc %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :img_url, placeholder: "Image URL", class: "form-control" %>
+    <%= error_tag f, :img_url %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :email, placeholder: "Contact - email", class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :mobile, placeholder: "Contact - mobile", class: "form-control" %>
+    <%= error_tag f, :mobile %>
+  </div>
+  <div class="form-group">
+    <%= text_input f, :fb_profile, placeholder: "Contact - fb profile", class: "form-control" %>
+    <%= error_tag f, :fb_profile %>
+  </div>
+
+  <%= submit "Save", class: "btn btn-primary" %>
+<% end %>
