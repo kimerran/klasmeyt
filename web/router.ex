@@ -16,7 +16,7 @@ defmodule Klasmeyt.Router do
   scope "/", Klasmeyt do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", ItemController, :index
 
     get "/new", ItemController, :new
     post "/items", ItemController, :create
