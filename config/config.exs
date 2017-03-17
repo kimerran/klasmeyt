@@ -11,7 +11,7 @@ config :klasmeyt,
 
 # Configures the endpoint
 config :klasmeyt, Klasmeyt.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "klasm.com", path: "/"],
   secret_key_base: "XSrPF3vsExaRTOpILRE5i7/WjyIx7mAiZNLxfQ/xC5DzlAKh9RR+K0LU+l1lUXmW",
   render_errors: [view: Klasmeyt.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Klasmeyt.PubSub,

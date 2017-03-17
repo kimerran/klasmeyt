@@ -1,9 +1,12 @@
 <h1>All Items</h1>
 
+<%= link "new item", to: item_path(@conn, :new) %>
+
 <ul>
   <%= for item <- @items do %>
     <li>
-      <%= item.title %> | Price: <%= item.price %>
+      <%= link item.title, to: item_path(@conn, :view, item.id) %>
+       | Price: <%= item.price %>
     </li>
   <% end %>
 </ul>

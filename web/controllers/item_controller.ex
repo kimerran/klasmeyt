@@ -25,4 +25,9 @@ defmodule Klasmeyt.ItemController do
     end
   end
 
+  def view(conn, %{"id" => id}) do
+    item = Repo.get(Klasmeyt.Item, id)
+    render conn, "view.html", item: item
+  end
+
 end

@@ -7,7 +7,8 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :klasmeyt, Klasmeyt.Endpoint,
-  http: [port: 4000],
+  url: [host: "klasm", path: "/"],
+  http: [port: 8080],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
