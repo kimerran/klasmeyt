@@ -4,3 +4,4 @@ price: <%= @item.price %>
 
 <br />
 <img src="<%=  @item.img_url %>" />
+

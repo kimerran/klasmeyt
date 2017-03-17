@@ -4,7 +4,8 @@ defmodule Klasmeyt.ImageController do
   def create(conn, %{"image" => %{"file" => image}}) do
     # todo: should only accepts valid image files
     # todo: should resize image if too large
+    File.cp(image.path, "#{System.cwd!()}/priv/static/images/#{image.filename}")
 
-    File.cp(image.path, "/home/mhneri/tmp/#{image.filename}")
+    render conn, "create.json", img_filename: image.filename
   end
 end

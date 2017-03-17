@@ -1,9 +1,33 @@
 <h1>New Item</h1>
 
-<%= form_for @image, image_path(@conn, :create), [multipart: true], fn f -> %>
+<img id="img_prev" />
+<%= form_for @image, image_path(@conn, :create), [id: "img_upload", multipart: true], fn f -> %>
   <%= file_input f, :file %>
   <%= submit "Add Image", class: "btn btn-primary" %>
 <% end %>
+
+<script>
+  var imguploader = document.getElementById("img_upload");
+
+  imguploader.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData();
+
+    formData.append(e.target[0].name, e.target[0].value);
+    formData.append(e.target[1].name, e.target[1].value);
+    formData.append('image[file]', e.target[2].files[0]);
+
+    var url = '<%= image_path(@conn, :create) %>'
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', url, true)
+    httpRequest.onreadystatechange = function (data) {
+      if (httpRequest.readyState == XMLHttpRequest.DONE) {
+        $("#img_prev").attr("src", "/images/" +  JSON.parse(httpRequest.responseText).filename);
+      }
+    }
+    httpRequest.send(formData)
+  })
+</script>
 
 <%= form_for @changeset, item_path(@conn, :create), fn f -> %>
   <div class="form-group">
