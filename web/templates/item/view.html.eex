@@ -1,3 +1,6 @@
 <h3><%= @item.title %></h3>
 
 price: <%= @item.price %>
+
+<br />
+<img src="<%=  @item.img_url %>" />
