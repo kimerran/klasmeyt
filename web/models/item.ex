@@ -13,8 +13,8 @@ defmodule Klasmeyt.Item do
     timestamps()
   end
 
-  def changeset(model, params \\ :invalid) do
+  def changeset(model, params \\ :empty) do
     model
-    |> cast(params, ~w(title price short_desc img_url email mobile fb_profile))
+    |> cast(params, ~w(title price short_desc img_url email mobile fb_profile), [])
   end
 end

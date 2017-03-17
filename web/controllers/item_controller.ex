@@ -1,6 +1,7 @@
 defmodule Klasmeyt.ItemController do
   use Klasmeyt.Web, :controller
   alias Klasmeyt.Item
+  alias Klasmeyt.Image
 
   def index(conn, _params) do
     items = Repo.all(Item)
@@ -8,8 +9,9 @@ defmodule Klasmeyt.ItemController do
   end
 
   def new(conn, _params) do
-    changeset = Item.changeset(%Item{})
-    render conn, "new.html", changeset: changeset
+    changeset = Item.changeset(%Item{}, :invalid)
+    image = Image.changeset(%Image{})
+    render conn, "new.html", changeset: changeset, image: image
   end
 
   def create(conn, %{"item" => item_params}) do
