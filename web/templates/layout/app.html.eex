@@ -25,14 +25,21 @@
             <img src="/images/logo.png" style="max-height:100px">
           </a>
         </div>
-      </div>
-      <div class="nav-right">
         <div class="nav-item">
-          <a class="button is-primary is-large" href="<%= item_path(@conn, :new) %>">
+          <a class="button is-primary" href="<%= item_path(@conn, :new) %>">
             Sell New Item
           </a>
         </div>
+        <div class="nav-item">
+          <input id="search-query" class="input" type="text" placeholder="Search">
+          <a id="search-button" class="button is-primary">
+            <span class="icon"><i class="fa fa-search"></i></span>
+          </a>
+        </div>
       </div>
+      </div>
+      <div class="nav-right">
+
     </nav>
           <p role="alert" class="is-success">
           <%= get_flash(@conn, :info) %>
@@ -56,5 +63,10 @@
     </div>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>
+      $("#search-button").click(function() {
+        window.location = "/search?q=" + $("#search-query").val();
+      });
+    </script>
   </body>
 </html>
