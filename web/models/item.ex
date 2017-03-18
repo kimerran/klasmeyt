@@ -13,6 +13,7 @@ defmodule Klasmeyt.Item do
 
     field :hash_id, :string, virtual: true
     field :terms, :string, virtual: true
+    field :score, :integer, virtual: true
     timestamps()
   end
 
@@ -21,11 +22,35 @@ defmodule Klasmeyt.Item do
     |> cast(params, ~w(title price short_desc img_url email mobile fb_profile), [])
   end
 
+  def generate_terms(title, short_desc) do
+    "#{title} #{short_desc}"
+    |> String.downcase
+    |> String.split
+    |> Enum.sort
+    |> Enum.dedup
+  end
+
   def add_hash_id(model) do
     %{model | hash_id: Api.hasher() |> Hashids.encode(model.id)} 
   end
 
   def add_terms(model) do
-    %{model | terms: Api.generate_terms(model.title, model.short_desc)}
+    %{model | terms: generate_terms(model.title, model.short_desc)}
+  end
+
+  def search_score(model, query) do
+    # loop the search strings
+    queries = String.downcase(query) |> String.split()
+
+    score = Enum.reduce(queries, 0,
+      fn(q, acc) ->
+        if Enum.member?(model.terms, q) do
+          acc + 1
+        else
+          acc
+        end
+      end)
+
+    %{model | score: score}
   end
 end

@@ -5,7 +5,12 @@ defmodule Klasmeyt.ItemController do
   alias Klasmeyt.Image
 
   def index(conn, _params) do
-    items = Repo.all(Item) |> Enum.map(&Item.add_hash_id/1)
+    items = 
+      Repo.all(Item)
+      |> Enum.map(&Item.add_hash_id/1)
+      |> Enum.map(&Item.add_terms/1)
+    
+    IO.inspect items
     render conn, "index.html", items: items
   end
 
@@ -38,5 +43,15 @@ defmodule Klasmeyt.ItemController do
       |> Item.add_terms()
 
     render conn, "view.html", item: item
+  end
+
+  def search(conn, %{"q" => query}) do
+    items =
+    Repo.all(Item)
+    |> Enum.map(&Item.add_hash_id/1)
+    |> Enum.map(&Item.add_terms/1)
+    |> Enum.map(fn i -> Item.search_score(i, query) end)
+    |> Enum.filter(fn i -> i.score > 0 end)
+    render conn, "search.html", items: items
   end
 end
