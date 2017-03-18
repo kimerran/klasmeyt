@@ -5,8 +5,14 @@ defmodule Klasmeyt.ItemController do
   alias Klasmeyt.Image
 
   def index(conn, _params) do
+    query =
+      from i in Item,
+      select: i,
+      limit: 8,
+      order_by: [desc: :inserted_at]
+
     items =
-      Repo.all(Item)
+      Repo.all(query)
       |> Enum.map(&Item.add_hash_id/1)
       |> Enum.map(&Item.add_price_in_cur/1)
       |> Enum.sort(fn(i1, i2) -> i1.inserted_at > i2.inserted_at end)
@@ -25,9 +31,10 @@ defmodule Klasmeyt.ItemController do
 
     case Repo.insert(changeset) do
       {:ok, _item} ->
-        conn
-        |> put_flash(:info, "New item has been saved")
-        |> redirect(to: item_path(conn, :index))
+        put_flash(conn, :info, "New item has been saved")
+
+        render conn, "created.html"
+
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
     end
