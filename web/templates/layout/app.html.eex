@@ -27,7 +27,7 @@
         </div>
         <div class="nav-item">
           <a class="button is-primary" href="<%= item_path(@conn, :new) %>">
-            Sell New Item
+            Sell an Item
           </a>
         </div>
         <div class="nav-item">

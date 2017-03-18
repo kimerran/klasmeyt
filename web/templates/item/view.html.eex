@@ -2,12 +2,12 @@
   <img src="<%=  @item.img_url %>" />
 </div>
 
-<div class="column">
+<div class="column is-one-half">
   <h1 class="title is-1">
     <%= @item.title %>
   </h1>
   <h2 class="subtitle">
-    <span class="tag is-dark is-small"> Php <%= @item.price %></span>
+    <span class="tag is-dark is-small"><%= @item.price_in_cur %></span>
   </h2>
   <span class="icon is-small"><i class="fa fa-info"></i></span>
   <p>

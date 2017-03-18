@@ -43,17 +43,17 @@
   <%= form_for @changeset, item_path(@conn, :create), fn f -> %>
     <div class="field">
       <label class="label">What are you selling?</label>
-      <%= text_input f, :title, placeholder: "Title", class: "input" %>
+      <%= text_input f, :title, placeholder: "example: University Physics 12th Edition", class: "input" %>
       <%= error_tag f, :title %>
     </div>
     <div class="field">
        <label class="label">How much?</label>
-      <%= number_input f, :price, placeholder: "Price", class: "input" %>
+      <%= number_input f, :price, placeholder: "Price in Philippine Peso", class: "input" %>
       <%= error_tag f, :price %>
     </div>
     <div class="field">
       <label class="label">Tell more about it</label>
-      <%= textarea f, :short_desc, placeholder: "Description", class: "textarea" %>
+      <%= textarea f, :short_desc, placeholder: "example: Pre-loved book without damage", class: "textarea" %>
       <%= error_tag f, :short_desc %>
     </div>
 

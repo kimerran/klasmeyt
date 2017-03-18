@@ -8,7 +8,8 @@ defmodule Klasmeyt.ItemController do
     items =
       Repo.all(Item)
       |> Enum.map(&Item.add_hash_id/1)
-      |> Enum.sort(fn(i1, i2) -> i1.updated_at > i2.updated_at end)
+      |> Enum.map(&Item.add_price_in_cur/1)
+      |> Enum.sort(fn(i1, i2) -> i1.inserted_at > i2.inserted_at end)
 
     render conn, "index.html", items: items
   end
@@ -39,7 +40,7 @@ defmodule Klasmeyt.ItemController do
 
     item =
       Repo.get(Item, id)
-      |> Item.add_terms()
+      |> Item.add_price_in_cur()
 
     render conn, "view.html", item: item
   end
@@ -48,11 +49,12 @@ defmodule Klasmeyt.ItemController do
     items =
     Repo.all(Item)
     |> Enum.map(&Item.add_hash_id/1)
+    |> Enum.map(&Item.add_price_in_cur/1)
     |> Enum.map(&Item.add_terms/1)
     |> Enum.map(fn i -> Item.search_score(i, query) end)
     |> Enum.filter(fn i -> i.score > 0 end)
     |> Enum.sort(fn(i1, i2) -> i1.score > i2.score end)
 
-    render conn, "search.html", items: items
+    render conn, "search.html", items: items, query: query
   end
 end

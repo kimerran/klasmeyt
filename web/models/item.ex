@@ -14,6 +14,7 @@ defmodule Klasmeyt.Item do
     field :hash_id, :string, virtual: true
     field :terms, :string, virtual: true
     field :score, :integer, virtual: true
+    field :price_in_cur, :string, virtual: true
     timestamps()
   end
 
@@ -36,6 +37,10 @@ defmodule Klasmeyt.Item do
 
   def add_terms(model) do
     %{model | terms: generate_terms(model.title, model.short_desc)}
+  end
+
+  def add_price_in_cur(model) do
+    %{model | price_in_cur: CurrencyFormatter.format(model.price * 100, :php)}
   end
 
   def search_score(model, query) do
