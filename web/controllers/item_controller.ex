@@ -5,12 +5,11 @@ defmodule Klasmeyt.ItemController do
   alias Klasmeyt.Image
 
   def index(conn, _params) do
-    items = 
+    items =
       Repo.all(Item)
       |> Enum.map(&Item.add_hash_id/1)
-      |> Enum.map(&Item.add_terms/1)
-    
-    IO.inspect items
+      |> Enum.sort(fn(i1, i2) -> i1.updated_at > i2.updated_at end)
+
     render conn, "index.html", items: items
   end
 
@@ -35,7 +34,7 @@ defmodule Klasmeyt.ItemController do
 
   def view(conn, %{"id" => hash_id}) do
     {:ok, [id | _]} =
-      Api.hasher() 
+      Api.hasher()
       |> Hashids.decode(hash_id)
 
     item =

@@ -1,5 +1,5 @@
 <div class="column is-center is-three-quarters">
-  <h1 class="title is-1">All Items</h1>
+  <h1 class="title is-1">Latest Items For Sale</h1>
   <%= for item <- @items do %>
     <article class="media">
       <figure class="media-left">
