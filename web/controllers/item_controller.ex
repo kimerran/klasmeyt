@@ -1,10 +1,11 @@
 defmodule Klasmeyt.ItemController do
   use Klasmeyt.Web, :controller
+  alias Klasmeyt.Api
   alias Klasmeyt.Item
   alias Klasmeyt.Image
 
   def index(conn, _params) do
-    items = Repo.all(Item) |> Enum.map(&user_id_to_hashid/1)
+    items = Repo.all(Item) |> Enum.map(&Item.add_hash_id/1)
     render conn, "index.html", items: items
   end
 
@@ -28,17 +29,14 @@ defmodule Klasmeyt.ItemController do
   end
 
   def view(conn, %{"id" => hash_id}) do
-    {:ok, [id | _]} = hasher() |> Hashids.decode(hash_id)
+    {:ok, [id | _]} =
+      Api.hasher() 
+      |> Hashids.decode(hash_id)
 
-    item = Repo.get(Klasmeyt.Item, id)
+    item =
+      Repo.get(Item, id)
+      |> Item.add_terms()
+
     render conn, "view.html", item: item
-  end
-
-  defp hasher() do
-    Hashids.new([salt: "klasmeyt!2017", min_len: 6, alphabet: "123456789thequickbrownfoxjumpsoverthelazydog123456789"])
-  end
-
-  def user_id_to_hashid(user) do
-      %{user | hash_id: hasher() |> Hashids.encode(user.id)} 
   end
 end

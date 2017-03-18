@@ -16,21 +16,22 @@
   <body>
     <nav class="nav has-shadow">
       <div class="nav-left">
+
+
+      </div>
+      <div class="nav-center">
         <div class="nav-item">
           <a href="<%= item_path(@conn, :index) %>">
             <img src="/images/logo.png" style="max-height:100px">
           </a>
         </div>
+      </div>
+      <div class="nav-right">
         <div class="nav-item">
           <a class="button is-primary is-large" href="<%= item_path(@conn, :new) %>">
             Sell New Item
           </a>
         </div>
-      </div>
-      <div class="nav-center">
-
-      </div>
-      <div class="nav-right">
       </div>
     </nav>
           <p role="alert" class="is-success">
