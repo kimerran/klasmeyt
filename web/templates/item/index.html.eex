@@ -1,12 +1,21 @@
-<h1>All Items</h1>
-
-<%= link "new item", to: item_path(@conn, :new) %>
-
-<ul>
+<div class="column is-center is-three-quarters">
+  <h1 class="title is-1">All Items</h1>
   <%= for item <- @items do %>
-    <li>
-      <%= link item.title, to: item_path(@conn, :view, item.hash_id) %>
-       | Price: <%= item.price %>
-    </li>
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="<%= item.img_url%>">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><%= link item.title, to: item_path(@conn, :view, item.hash_id) %></strong> <small><%= item.price %> pesos</small>
+            <br>
+            <%= item.short_desc %>
+        </div>
+      </div>
+    </article>
   <% end %>
-</ul>
+</div>
+

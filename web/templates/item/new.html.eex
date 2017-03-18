@@ -1,3 +1,4 @@
+<div class="column">
 <h1>New Item</h1>
   <div>
     <img id="img_prev" />
@@ -68,3 +69,5 @@
 
   <%= submit "Save", class: "btn btn-primary" %>
 <% end %>
+
+</div>

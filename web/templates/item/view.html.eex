@@ -1,10 +1,19 @@
-<h3><%= @item.title %></h3>
+<div class="column is-one-quarter">
+  <img src="<%=  @item.img_url %>" />
+</div>
 
-price: <%= @item.price %>
+<div class="column">
+  <h1 class="title is-1">
+    <%= @item.title %>
+  </h1>
+  <h2 class="subtitle">
+    <span class="tag is-dark is-small"> Php <%= @item.price %></span>
+  </h2>
+  <span class="icon is-small"><i class="fa fa-info"></i></span>
+  <p>
+    <%= @item.short_desc %>
+  </p>
 
-<br />
-<img src="<%=  @item.img_url %>" />
 
-<p>
-<%= @item.short_desc %>
-</p>
+</div>
+
