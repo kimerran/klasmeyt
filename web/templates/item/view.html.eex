@@ -5,3 +5,6 @@ price: <%= @item.price %>
 <br />
 <img src="<%=  @item.img_url %>" />
 
+<p>
+<%= @item.short_desc %>
+</p>

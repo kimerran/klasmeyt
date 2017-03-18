@@ -5,7 +5,7 @@
 <ul>
   <%= for item <- @items do %>
     <li>
-      <%= link item.title, to: item_path(@conn, :view, item.id) %>
+      <%= link item.title, to: item_path(@conn, :view, item.hash_id) %>
        | Price: <%= item.price %>
     </li>
   <% end %>

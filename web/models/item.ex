@@ -10,6 +10,7 @@ defmodule Klasmeyt.Item do
     field :mobile, :string
     field :fb_profile, :string
 
+    field :hash_id, :string, virtual: true
     timestamps()
   end
 

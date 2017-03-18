@@ -1,11 +1,11 @@
 <h1>New Item</h1>
-
-<img id="img_prev" />
-<%= form_for @image, image_path(@conn, :create), [id: "img_upload", multipart: true], fn f -> %>
-  <%= file_input f, :file %>
-  <%= submit "Add Image", class: "btn btn-primary" %>
-<% end %>
-
+  <div>
+    <img id="img_prev" />
+    <%= form_for @image, image_path(@conn, :create), [id: "img_upload", multipart: true], fn f -> %>
+      <%= file_input f, :file %>
+      <%= submit "Add Image", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 <script>
   var imguploader = document.getElementById("img_upload");
 
@@ -23,6 +23,7 @@
     httpRequest.onreadystatechange = function (data) {
       if (httpRequest.readyState == XMLHttpRequest.DONE) {
         $("#img_prev").attr("src", "/images/" +  JSON.parse(httpRequest.responseText).filename);
+        $("#item_img_url").val("http://localhost:8080/images/" +  JSON.parse(httpRequest.responseText).filename);
       }
     }
     httpRequest.send(formData)
@@ -45,6 +46,7 @@
     <%= textarea f, :short_desc, placeholder: "Description", class: "form-control" %>
     <%= error_tag f, :short_desc %>
   </div>
+
   <div class="form-group">
     <%= url_input f, :img_url, placeholder: "Image URL", class: "form-control" %>
     <%= error_tag f, :img_url %>
