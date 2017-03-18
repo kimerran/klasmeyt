@@ -22,7 +22,7 @@ defmodule Klasmeyt.Router do
     post "/items", ItemController, :create
     post "/images", ImageController, :create
 
-    get "/:id", ItemController, :view
+    get "/i/:id", ItemController, :view
 
   end
 

@@ -1,73 +1,84 @@
-<div class="column">
-<h1>New Item</h1>
+<div class="column is-one-quarter">
+  <h1 class="title is-1">Sell Item</h1>
   <div>
     <img id="img_prev" />
     <%= form_for @image, image_path(@conn, :create), [id: "img_upload", multipart: true], fn f -> %>
+      <p style="color:red">
+        <span class="icon is-small"><i class="fa fa-picture-o"></i></span>
+        Add picture</p>
       <%= file_input f, :file %>
-      <%= submit "Add Image", class: "btn btn-primary" %>
+      <br />
+      <%= submit "Add Image", class: "button is-info is-small" %>
     <% end %>
   </div>
-<script>
-  var imguploader = document.getElementById("img_upload");
+  <script>
+    var imguploader = document.getElementById("img_upload");
 
-  imguploader.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var formData = new FormData();
+    imguploader.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData();
 
-    formData.append(e.target[0].name, e.target[0].value);
-    formData.append(e.target[1].name, e.target[1].value);
-    formData.append('image[file]', e.target[2].files[0]);
+      formData.append(e.target[0].name, e.target[0].value);
+      formData.append(e.target[1].name, e.target[1].value);
+      formData.append('image[file]', e.target[2].files[0]);
 
-    var url = '<%= image_path(@conn, :create) %>'
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', url, true)
-    httpRequest.onreadystatechange = function (data) {
-      if (httpRequest.readyState == XMLHttpRequest.DONE) {
-        $("#img_prev").attr("src", "/images/" +  JSON.parse(httpRequest.responseText).filename);
-        $("#item_img_url").val("http://localhost:8080/images/" +  JSON.parse(httpRequest.responseText).filename);
+      var url = '<%= image_path(@conn, :create) %>'
+      var httpRequest = new XMLHttpRequest();
+      httpRequest.open('POST', url, true)
+      httpRequest.onreadystatechange = function (data) {
+        if (httpRequest.readyState == XMLHttpRequest.DONE) {
+          $("#img_prev").attr("src", "/images/" +  JSON.parse(httpRequest.responseText).filename);
+          $("#item_img_url").val("http://localhost:8080/images/" +  JSON.parse(httpRequest.responseText).filename);
+        }
       }
-    }
-    httpRequest.send(formData)
-  })
-</script>
+      httpRequest.send(formData)
+    })
+  </script>
 
-<%= form_for @changeset, item_path(@conn, :create), fn f -> %>
-  <div class="form-group">
-    <%= label f, :title %>
-    <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
-    <%= error_tag f, :title %>
-  </div>
-  <div class="form-group">
-    <%= label f, :price %>
-    <%= number_input f, :price, placeholder: "Price", class: "form-control" %>
-    <%= error_tag f, :price %>
-  </div>
-  <div class="form-group">
-    <%= label f, :short_desc %>
-    <%= textarea f, :short_desc, placeholder: "Description", class: "form-control" %>
-    <%= error_tag f, :short_desc %>
-  </div>
-
-  <div class="form-group">
-    <%= url_input f, :img_url, placeholder: "Image URL", class: "form-control" %>
-    <%= error_tag f, :img_url %>
-  </div>
-  <div class="form-group">
-    <%= email_input f, :email, placeholder: "Contact - email", class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
-  <div class="form-group">
-    <%= text_input f, :mobile, placeholder: "Contact - mobile", class: "form-control" %>
-    <%= error_tag f, :mobile %>
-  </div>
-  <div class="form-group">
-    <%= text_input f, :fb_profile, placeholder: "Contact - fb profile", class: "form-control" %>
-    <%= error_tag f, :fb_profile %>
-  </div>
-
-
-
-  <%= submit "Save", class: "btn btn-primary" %>
-<% end %>
 
 </div>
+
+<div class="column is-half">
+
+  <%= form_for @changeset, item_path(@conn, :create), fn f -> %>
+    <div class="field">
+      <label class="label">What are you selling?</label>
+      <%= text_input f, :title, placeholder: "Title", class: "input" %>
+      <%= error_tag f, :title %>
+    </div>
+    <div class="field">
+       <label class="label">How much?</label>
+      <%= number_input f, :price, placeholder: "Price", class: "input" %>
+      <%= error_tag f, :price %>
+    </div>
+    <div class="field">
+      <label class="label">Tell more about it</label>
+      <%= textarea f, :short_desc, placeholder: "Description", class: "textarea" %>
+      <%= error_tag f, :short_desc %>
+    </div>
+
+    <div class="field">
+       <label class="label">Add some picture (example: http://picture.jpg)</label>
+      <%= url_input f, :img_url, placeholder: "Image URL", class: "input" %>
+      <%= error_tag f, :img_url %>
+    </div>
+    <div class="field">
+       <label class="label">Your e-mail address</label>
+      <%= email_input f, :email, placeholder: "example: hello@likja.com", class: "input" %>
+      <%= error_tag f, :email %>
+    </div>
+    <div class="field">
+       <label class="label">Mobile number</label>
+      <%= text_input f, :mobile, placeholder: "example: 0900 123 4567", class: "input" %>
+      <%= error_tag f, :mobile %>
+    </div>
+    <div class="field">
+      <label class="label">FB Profile</label>
+      <%= text_input f, :fb_profile, placeholder: "example: zuck", class: "input" %>
+      <%= error_tag f, :fb_profile %>
+    </div>
+    <%= submit "Save", class: "button is-primary is-large" %>
+  <% end %>
+</div>
+
+

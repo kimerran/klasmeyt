@@ -18,7 +18,7 @@ defmodule Klasmeyt.ItemController do
     changeset = Item.changeset(%Item{}, item_params)
 
     case Repo.insert(changeset) do
-      {:ok, item} ->
+      {:ok, _item} ->
         conn
         |> put_flash(:info, "New item has been saved")
         |> redirect(to: item_path(conn, :index))
