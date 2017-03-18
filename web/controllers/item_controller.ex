@@ -52,6 +52,8 @@ defmodule Klasmeyt.ItemController do
     |> Enum.map(&Item.add_terms/1)
     |> Enum.map(fn i -> Item.search_score(i, query) end)
     |> Enum.filter(fn i -> i.score > 0 end)
+
+    # todo: sort results by their score
     render conn, "search.html", items: items
   end
 end
