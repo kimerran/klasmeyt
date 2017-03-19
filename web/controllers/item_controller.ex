@@ -30,10 +30,10 @@ defmodule Klasmeyt.ItemController do
     changeset = Item.changeset(%Item{}, item_params)
 
     case Repo.insert(changeset) do
-      {:ok, _item} ->
+      {:ok, item} ->
         put_flash(conn, :info, "New item has been saved")
 
-        render conn, "created.html"
+        render conn, "created.html", item: item |> Item.add_hash_id()
 
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
@@ -53,14 +53,19 @@ defmodule Klasmeyt.ItemController do
   end
 
   def search(conn, %{"q" => query}) do
+    repo_query =
+      from i in Item,
+      select: i,
+      limit: 20
+
     items =
-    Repo.all(Item)
-    |> Enum.map(&Item.add_hash_id/1)
-    |> Enum.map(&Item.add_price_in_cur/1)
-    |> Enum.map(&Item.add_terms/1)
-    |> Enum.map(fn i -> Item.search_score(i, query) end)
-    |> Enum.filter(fn i -> i.score > 0 end)
-    |> Enum.sort(fn(i1, i2) -> i1.score > i2.score end)
+      Repo.all(repo_query)
+      |> Enum.map(&Item.add_hash_id/1)
+      |> Enum.map(&Item.add_price_in_cur/1)
+      |> Enum.map(&Item.add_terms/1)
+      |> Enum.map(fn i -> Item.search_score(i, query) end)
+      |> Enum.filter(fn i -> i.score > 0 end)
+      |> Enum.sort(fn(i1, i2) -> i1.score > i2.score end)
 
     render conn, "search.html", items: items, query: query
   end

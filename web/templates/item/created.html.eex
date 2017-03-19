@@ -1,3 +1,17 @@
 <div class="column">
   <h1 class="title is-1">New item saved</h1>
+
+  <p>
+    Your item <%= @item.title %> has been created
+  </p>
+
+  <p>
+    We sent an e-mail to verify your e-mail address.
+  </p>
+
+  <a href="<%= item_path(@conn, :view, @item.hash_id) %>">
+    View item
+  </a>
+
 </div>
+
