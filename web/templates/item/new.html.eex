@@ -44,38 +44,38 @@
     <div class="field">
       <label class="label">What are you selling?</label>
       <%= text_input f, :title, placeholder: "example: University Physics 12th Edition", class: "input" %>
-      <%= error_tag f, :title %>
+      <span class="help is-danger">* <%= error_tag f, :title %></span>
     </div>
     <div class="field">
        <label class="label">How much?</label>
       <%= number_input f, :price, placeholder: "Price in Philippine Peso", class: "input" %>
-      <%= error_tag f, :price %>
+      <span class="help is-danger">* <%= error_tag f, :price %></span>
     </div>
     <div class="field">
       <label class="label">Tell more about it</label>
       <%= textarea f, :short_desc, placeholder: "example: Pre-loved book without damage", class: "textarea" %>
-      <%= error_tag f, :short_desc %>
+      <span class="help is-danger">* <%= error_tag f, :short_desc %></span>
     </div>
 
     <div class="field">
        <label class="label">Add some picture (example: http://picture.jpg)</label>
       <%= url_input f, :img_url, placeholder: "Image URL", class: "input" %>
-      <%= error_tag f, :img_url %>
+      <span class="help is-danger">* <%= error_tag f, :img_url %></span>
     </div>
     <div class="field">
        <label class="label">Your e-mail address</label>
       <%= email_input f, :email, placeholder: "example: hello@likja.com", class: "input" %>
-      <%= error_tag f, :email %>
+      <span class="help is-danger">* <%= error_tag f, :email %></span>
     </div>
     <div class="field">
        <label class="label">Mobile number</label>
       <%= text_input f, :mobile, placeholder: "example: 0900 123 4567", class: "input" %>
-      <%= error_tag f, :mobile %>
+      <span class="help is-danger">* <%= error_tag f, :mobile %></span>
     </div>
     <div class="field">
       <label class="label">FB Profile</label>
       <%= text_input f, :fb_profile, placeholder: "example: zuck", class: "input" %>
-      <%= error_tag f, :fb_profile %>
+      <span class="help is-danger">* <%= error_tag f, :fb_profile %></span>
     </div>
     <%= submit "Save", class: "button is-primary is-large" %>
   <% end %>

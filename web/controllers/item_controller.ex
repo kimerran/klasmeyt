@@ -36,7 +36,8 @@ defmodule Klasmeyt.ItemController do
         render conn, "created.html", item: item |> Item.add_hash_id()
 
       {:error, changeset} ->
-        render conn, "new.html", changeset: changeset
+        image = Image.changeset(%Image{})
+        render conn, "new.html", changeset: changeset, image: image
     end
   end
 
@@ -66,6 +67,7 @@ defmodule Klasmeyt.ItemController do
       |> Enum.map(fn i -> Item.search_score(i, query) end)
       |> Enum.filter(fn i -> i.score > 0 end)
       |> Enum.sort(fn(i1, i2) -> i1.score > i2.score end)
+
 
     render conn, "search.html", items: items, query: query
   end

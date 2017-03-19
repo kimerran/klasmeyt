@@ -7,13 +7,28 @@
     <%= @item.title %>
   </h1>
   <h2 class="subtitle">
-    <span class="tag is-dark is-small"><%= @item.price_in_cur %></span>
+    <span class="tag is-dark is-medium"><%= @item.price_in_cur %></span>
   </h2>
   <span class="icon is-small"><i class="fa fa-info"></i></span>
   <p>
     <%= @item.short_desc %>
   </p>
 
+  <div style="margin-top: 25px;">
+    <span class="tag is-info is-large">
+      <span class="icon is-medium"><i class="fa fa-envelope-o"></i></span>
+      <%= @item.email %>
+    </span>
+    <span class="tag is-info is-large">
+      <span class="icon is-medium"><i class="fa fa-mobile"></i></span>
+      <%= @item.mobile %>
+    </span>
+    <span class="tag is-info is-large">
+      <span class="icon is-medium"><i class="fa fa-facebook-official"></i></span>
+      <%= @item.fb_profile %>
+    </span>
+  </div>
+  
 
 </div>
 
