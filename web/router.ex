@@ -19,12 +19,11 @@ defmodule Klasmeyt.Router do
 
     get "/", ItemController, :index
     get "/new", ItemController, :new
-    post "/items", ItemController, :create
+    post "/save", ItemController, :create
     post "/images", ImageController, :create
 
     get "/search", ItemController, :search
     get "/i/:id", ItemController, :view
-
   end
 
   # Other scopes may use custom stacks.
