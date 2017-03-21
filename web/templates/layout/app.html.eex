@@ -65,7 +65,7 @@
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>
       $("#search-button").click(function() {
-        window.location = "/search?q=" + $("#search-query").val();
+        window.location = "/search?q=" + $("#search-query").val() + "&p=1";
       });
     </script>
   </body>
