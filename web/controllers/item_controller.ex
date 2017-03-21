@@ -53,20 +53,23 @@ defmodule Klasmeyt.ItemController do
     render conn, "view.html", item: item
   end
 
-  def search(conn, %{"q" => query, "p" => page}) do
+  def search(conn, %{"q" => keyword, "p" => page}) do
     offset = (String.to_integer(page) - 1) * 10
 
-    repo_query = from i in Item, select: i, offset: ^offset, limit: 10
+    repo_query = from i in Item, offset: ^offset, limit: 10,
+      where: ilike(i.short_desc, ^"%#{keyword}%"),
+      or_where: ilike(i.title, ^"%#{keyword}%"),
+      select: i
 
     items =
       Repo.all(repo_query)
       |> Enum.map(&Item.add_hash_id/1)
       |> Enum.map(&Item.add_price_in_cur/1)
       |> Enum.map(&Item.add_terms/1)
-      |> Enum.map(fn i -> Item.search_score(i, query) end)
+      |> Enum.map(fn i -> Item.search_score(i, keyword) end)
       |> Enum.filter(fn i -> i.score > 0 end)
       |> Enum.sort(fn(i1, i2) -> i1.score > i2.score end)
 
-    render conn, "search.html", items: items, query: query
+    render conn, "search.html", items: items, query: keyword
   end
 end
